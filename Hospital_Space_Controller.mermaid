@@ -1,0 +1,71 @@
+flowchart TD
+    A[Start: Hospital System] --> B[Show Welcome Message]
+    B --> C[Show Loading Screen]
+    C --> D{Main Menu}
+    
+    D -->|Option 1| E[Show Diagram & Add Patient]
+    D -->|Option 2| F[Show Diagram & Discharge Patient]
+    D -->|Option 3| G[Check Room Availability]
+    D -->|Option 4| H[Check if Patient is Admitted]
+    D -->|Option 5| I[Search Patient Details]
+    D -->|Option 6| J[Print All Patient Records]
+    D -->|Option 7| K[Exit System]
+    
+    E --> D
+    F --> D
+    G --> D
+    H --> D
+    I --> D
+    J --> D
+    
+    K --> L[End]
+    
+    subgraph E [Add Patient]
+        E1[Select Room]
+        E2{Is Room Free?}
+        E1 --> E2
+        E2 -->|Yes| E3[Enter Patient Data]
+        E2 -->|No| E4[Show Error & Retry]
+        E4 --> E1
+        E3 --> E5[Return to Menu]
+    end
+
+    subgraph F [Discharge Patient]
+        F1[Select Room]
+        F2[Clear All Patient Data]
+        F1 --> F2 --> F3[Return to Menu]
+    end
+
+    subgraph G [Check Availability]
+        G1[Update Room Status]
+        G2[Display Available/Occupied Rooms]
+        G1 --> G2 --> G3[Return to Menu]
+    end
+
+    subgraph H [Check Admission]
+        H1[Enter Patient Name]
+        H2[Search in Records]
+        H3{Found?}
+        H2 --> H3
+        H3 -->|Yes| H4[Show Room Number]
+        H3 -->|No| H5[Show Not Found]
+        H4 --> H6[Return to Menu]
+        H5 --> H6
+    end
+
+    subgraph I [Search Patient]
+        I1[Enter Patient Name]
+        I2[Search in Records]
+        I3{Found?}
+        I2 --> I3
+        I3 -->|Yes| I4[Display All Patient Info]
+        I3 -->|No| I5[Show Not Found]
+        I4 --> I6[Return to Menu]
+        I5 --> I6
+    end
+
+    subgraph J [Print All Records]
+        J1[Loop Through All Rooms]
+        J2[Display Patient Info for Each]
+        J1 --> J2 --> J3[Return to Menu]
+    end
