@@ -1,16 +1,16 @@
-# 🏥 Hospital Space Controller
+#  Hospital Space Controller
 
 Sistema de gestión hospitalaria en C++ que permite administrar la ocupación de habitaciones, el registro de pacientes, doctores y datos epidemiológicos.
 
 ---
 
-### 📋 Descripción General
+###  Descripción General
 
 **Hospital Space Controller** es una aplicación de consola desarrollada en C++ que simula la gestión de un hospital con múltiples pisos, cuartos y camas. Permite dar de alta y de baja a pacientes, consultar disponibilidad, buscar pacientes, generar reportes epidemiológicos y administrar información clínica, administrativa y de tratamiento.
 
 El sistema está diseñado con un enfoque modular orientado a objetos, donde cada responsabilidad está encapsulada en clases bien definidas.
 
-### ✨ Características Principales
+###  Características Principales
 
 - **Gestión de habitaciones**: 3 pisos × 2 cuartos × 6 camas = 36 habitaciones.
 - **Alta de pacientes**: Registro completo con datos de identificación, clínicos, tratamiento, administrativos y epidemiológicos.
@@ -20,7 +20,7 @@ El sistema está diseñado con un enfoque modular orientado a objetos, donde cad
 - **Reporte epidemiológico**: Identificación de pacientes con enfermedades contagiosas y casos reportados a la autoridad sanitaria.
 - **Interfaz de consola**: Menú interactivo con animación de carga y limpieza de pantalla.
 
-### 🏗️ Arquitectura del Código
+###  Arquitectura del Código
 
 El proyecto se organiza en las siguientes clases:
 
@@ -40,13 +40,13 @@ El proyecto se organiza en las siguientes clases:
 Además, el namespace `Utilerias` proporciona funciones auxiliares para entrada/salida, limpieza de pantalla, formato de fecha/hora y validación de datos.
 
 
-### ⚙️ Requisitos
+### Requisitos
 
 - **Compilador C++11 o superior** (g++, clang++, MSVC).
 - **Sistema operativo**: Windows, Linux o macOS.
 - No requiere bibliotecas externas.
 
-### 🚀 Compilación y Ejecución
+###  Compilación y Ejecución
 
 **Linux / macOS:**
 ```bash
