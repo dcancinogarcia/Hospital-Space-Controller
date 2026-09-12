@@ -1,55 +1,152 @@
 #  Hospital Space Controller
 
-Sistema de gestión hospitalaria en C++ que permite administrar la ocupación de habitaciones, el registro de pacientes, doctores y datos epidemiológicos.
+A console-based hospital management system written in C++. It simulates the administration of a hospital with multiple floors, rooms, and beds, allowing you to admit patients, discharge them, check room availability, search records, and generate epidemiological reports.
 
 ---
 
-###  Descripción General
+##  Features
 
-**Hospital Space Controller** es una aplicación de consola desarrollada en C++ que simula la gestión de un hospital con múltiples pisos, cuartos y camas. Permite dar de alta y de baja a pacientes, consultar disponibilidad, buscar pacientes, generar reportes epidemiológicos y administrar información clínica, administrativa y de tratamiento.
+-  **Preconfigured hospital layout** — 3 floors × 2 rooms × 6 beds = **36 beds**
+-  **Full patient records** — identification, clinical, treatment, administrative, and epidemiological data
+-  **Doctor assignment** — each occupied bed stores the attending doctor's information
+-  **Patient admission** — register a new patient into any free bed
+-  **Patient discharge** — free a bed and record the discharge date automatically
+-  **Room availability view** — quick overview of which beds are free or occupied
+-  **Patient search** — find a patient by full name and display their complete file
+-  **Totals report** — summary of every bed and its current occupant
+-  **Epidemiological report** — count and list contagious cases and those reported to health authorities
+-  **Cross-platform console** — clears the screen on both Windows (`CLS`) and Unix-like systems (`clear`)
+-  **Loading animation** — small intro animation when the system starts
 
-El sistema está diseñado con un enfoque modular orientado a objetos, donde cada responsabilidad está encapsulada en clases bien definidas.
+---
 
-###  Características Principales
+##  Requirements
 
-- **Gestión de habitaciones**: 3 pisos × 2 cuartos × 6 camas = 36 habitaciones.
-- **Alta de pacientes**: Registro completo con datos de identificación, clínicos, tratamiento, administrativos y epidemiológicos.
-- **Baja de pacientes**: Liberación de habitaciones con registro de fecha de alta.
-- **Disponibilidad**: Consulta del estado de cada habitación (libre/ocupada).
-- **Búsqueda de pacientes**: Localización por nombre completo con ficha detallada.
-- **Reporte epidemiológico**: Identificación de pacientes con enfermedades contagiosas y casos reportados a la autoridad sanitaria.
-- **Interfaz de consola**: Menú interactivo con animación de carga y limpieza de pantalla.
+- A C++ compiler with **C++11** or later support (e.g., `g++`, `clang++`, MSVC)
+- No external libraries — standard library only
 
-###  Arquitectura del Código
+---
 
-El proyecto se organiza en las siguientes clases:
+##  Compilation & Usage
 
-| Clase | Responsabilidad |
-|-------|-----------------|
-| `DatosIdentificacion` | Información personal del paciente (nombre, edad, contacto de emergencia, etc.). |
-| `DatosClinicos` | Historial médico, síntomas, diagnóstico y resultados de estudios. |
-| `DatosTratamiento` | Medicamentos, cirugías, procedimientos y evolución diaria. |
-| `DatosAdministrativos` | Fechas de ingreso/alta, seguro médico, costos y facturación. |
-| `DatosEpidemiologicos` | Enfermedades contagiosas, aislamiento y reportes sanitarios. |
-| `Doctor` | Información del médico responsable (nombre, clave, especialidad). |
-| `Paciente` | Agrupa todos los datos anteriores en una entidad única. |
-| `Habitacion` | Representa una cama con su paciente y doctor asignados. |
-| `Hospital` | Contenedor principal que gestiona todas las habitaciones. |
-| `Menu` | Interfaz de usuario y flujo principal del programa. |
+### Linux / macOS
 
-Además, el namespace `Utilerias` proporciona funciones auxiliares para entrada/salida, limpieza de pantalla, formato de fecha/hora y validación de datos.
-
-
-### Requisitos
-
-- **Compilador C++11 o superior** (g++, clang++, MSVC).
-- **Sistema operativo**: Windows, Linux o macOS.
-- No requiere bibliotecas externas.
-
-###  Compilación y Ejecución
-
-**Linux / macOS:**
 ```bash
-g++ -std=c++11 -o hospital Hospital_Space_Controller.cpp -pthread
+g++ -std=c++11 -O2 -o hospital Hospital_Space_Controller.cpp
 ./hospital
+```
 
+### Windows (MinGW / g++)
+
+```bash
+g++ -std=c++11 -O2 -o hospital.exe Hospital_Space_Controller.cpp
+hospital.exe
+```
+
+### Windows (MSVC)
+
+```bash
+cl /EHsc /std:c++14 Hospital_Space_Controller.cpp
+Hospital_Space_Controller.exe
+```
+
+>  On Windows, the code uses `system("CLS")`; on Unix-like systems it uses `system("clear")`. Both are handled automatically.
+
+---
+
+##  Menu Options
+
+When you run the program, you'll see the main menu:
+
+```
+----------------------------------
+Enter the option you need (1-8)
+1 - Admit patient
+2 - Discharge patient
+3 - Availability
+4 - Check discharge
+5 - Search patient
+6 - Print totals
+7 - Epidemiological report
+8 - Close system
+----------------------------------
+Option:
+```
+
+| Option | Description                                                     |
+|--------|-----------------------------------------------------------------|
+| `1`    | **Admit patient** — register a new patient in a free bed        |
+| `2`    | **Discharge patient** — free a bed and record the discharge      |
+| `3`    | **Availability** — list every bed as available / unavailable     |
+| `4`    | **Check discharge** — verify if a patient is currently admitted  |
+| `5`    | **Search patient** — display the full record of a patient        |
+| `6`    | **Print totals** — summary of all beds and their occupants       |
+| `7`    | **Epidemiological report** — contagious cases & reported cases   |
+| `8`    | **Exit** — close the system                                      |
+
+---
+
+##  Project Structure
+
+The program is organized into several classes, each representing a domain concept:
+
+| Class                   | Responsibility                                                       |
+|-------------------------|----------------------------------------------------------------------|
+| `Utilities`             | Utility functions (screen clearing, input reading, dates, headers)   |
+| `IdentificationData`    | Patient personal data (name, age, sex, address, emergency contact)   |
+| `ClinicalData`          | Clinical data (history, symptoms, diagnosis, lab & X-ray results)    |
+| `TreatmentData`         | Treatment data (medications, surgeries, procedures, daily progress)  |
+| `AdministrativeData`    | Administrative data (admission/discharge dates, insurance, billing)  |
+| `EpidemiologicalData`   | Epidemiological data (contagious disease, isolation, reporting)      |
+| `Doctor`                | Attending doctor's information                                       |
+| `Patient`               | Aggregates all patient-related data blocks                           |
+| `Room`                  | A single bed with its patient and doctor                             |
+| `Hospital`              | Collection of beds plus all operations                               |
+| `Menu`                  | Console UI and main loop                                             |
+
+---
+
+##  Hospital Layout
+
+- **Floors:** 3
+- **Rooms per floor:** 2
+- **Beds per room:** 6
+- **Total beds:** 36
+
+Each bed is uniquely numbered and displayed with a status marker:
+
+```
+[F] = free      [O] = occupied
+```
+
+Example diagram:
+
+```
+ 0[F]  1[F]  2[O]  3[F]
+ 4[F]  5[F]  6[F]  7[O]
+ ...
+floor: 1
+----
+```
+
+---
+
+##  Data Handling Notes
+
+- All data lives **in memory only** — nothing is persisted between runs.
+- Discharging a patient clears all of their stored records and frees the bed.
+- Input is validated for integers and decimals to avoid crashes on bad input.
+- Dates are captured as strings, with the current date used automatically for admissions and discharges.
+
+---
+
+##  How It Works
+
+1. **Startup** — a welcome header, a pause, and a short loading animation.
+2. **Menu loop** — the user selects an option; the screen is cleared between actions.
+3. **Admission** — the user picks a free bed and enters the full patient and doctor data.
+4. **Discharge** — the user picks an occupied bed; the discharge date is set and the bed is cleared.
+5. **Search / Reports** — iterate over all beds and filter by the requested criteria.
+6. **Exit** — option `8` closes the loop and ends the program.
+
+---
